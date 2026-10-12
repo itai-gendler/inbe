@@ -1,0 +1,95 @@
+---
+kind: primary
+routes:
+  desktop: Native desktop
+steps:
+- text: Create habit for the selected definition or date
+  kind: actor
+  entities:
+  - entity: habit
+    effect: reads
+    facts: []
+  contexts:
+    desktop:
+      place: desktop-app::habit
+  actor: user
+- text: The entered name is trimmed and checked for nonblank content, loaded-set uniqueness and the native thirty-two-definition
+    capacity.
+  kind: condition
+  entities:
+  - entity: habit
+    effect: reads
+    facts:
+    - Identity
+    - Name
+    - Description
+    - Color
+    - Order
+    - Practice links
+    - Linking mode
+    - Counting mode
+    - Target
+    - Schedule
+    - Reminder hour
+  - entity: habit-day
+    effect: reads
+    facts:
+    - Habit
+    - Date
+    - Stored count
+    - Stored completion
+    - Materialized baseline
+    - Visible linked count
+    - Effective count
+    - Scheduled
+    - Completed
+  contexts:
+    desktop:
+      place: desktop-app::habit
+  actor: user
+- text: The trimmed unique name and supplied color, links, counting, schedule and notification-hour facts are saved
+    as a new definition.
+  kind: product
+  entities:
+  - entity: habit
+    effect: creates
+    facts:
+    - Identity
+    - Name
+    - Description
+    - Color
+    - Order
+    - Practice links
+    - Linking mode
+    - Counting mode
+    - Target
+    - Schedule
+    - Reminder hour
+  contexts:
+    desktop:
+      place: desktop-app::habit
+  actor: user
+references:
+- kind: code
+  role: implementation
+  target: apps/habits/habits.zi
+- kind: code
+  role: implementation
+  target: src/habits/habit_actions.zi
+- kind: code
+  role: implementation
+  target: src/habits/habit_sessions.zi
+- kind: code
+  role: implementation
+  target: src/storage/storage_habit_materialize.zi
+---
+
+# Create habit — definition
+
+## Trigger
+
+Create habit for the selected definition or date.
+
+## Outcome
+
+The trimmed unique name and supplied color, links, counting, schedule and reminder facts are saved as a new definition.

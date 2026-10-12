@@ -1,0 +1,79 @@
+---
+kind: validation
+routes:
+  desktop: Native desktop
+steps:
+- text: Create habit for the selected definition or date
+  kind: actor
+  entities:
+  - entity: habit
+    effect: reads
+    facts: []
+  contexts:
+    desktop:
+      place: desktop-app::habit
+  actor: user
+- text: The trimmed entered name matches an existing name in the loaded native definition set.
+  kind: condition
+  entities:
+  - entity: habit
+    effect: reads
+    facts:
+    - Identity
+    - Name
+    - Description
+    - Color
+    - Order
+    - Practice links
+    - Linking mode
+    - Counting mode
+    - Target
+    - Schedule
+    - Reminder hour
+  - entity: habit-day
+    effect: reads
+    facts:
+    - Habit
+    - Date
+    - Stored count
+    - Stored completion
+    - Materialized baseline
+    - Visible linked count
+    - Effective count
+    - Scheduled
+    - Completed
+  contexts:
+    desktop:
+      place: desktop-app::habit
+  actor: user
+- text: A name already in the loaded set is refused; no definition is saved.
+  kind: product
+  entities: []
+  contexts:
+    desktop:
+      place: desktop-app::habit
+  actor: user
+references:
+- kind: code
+  role: implementation
+  target: apps/habits/habits.zi
+- kind: code
+  role: implementation
+  target: src/habits/habit_actions.zi
+- kind: code
+  role: implementation
+  target: src/habits/habit_sessions.zi
+- kind: code
+  role: implementation
+  target: src/storage/storage_habit_materialize.zi
+---
+
+# Create habit — duplicate
+
+## Trigger
+
+Create habit for the selected definition or date.
+
+## Outcome
+
+A name already in the loaded set is refused; no definition is saved.

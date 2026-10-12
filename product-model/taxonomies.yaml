@@ -1,0 +1,10 @@
+scenarioKinds:
+- id: primary
+  name: Primary
+  description: Established successful behavior.
+- id: validation
+  name: Validation
+  description: Input or availability refusal without the refused operation.
+- id: edge
+  name: Edge
+  description: Consequential failure, conflict, cancellation or expiry.
