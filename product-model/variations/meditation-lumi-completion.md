@@ -1,16 +1,16 @@
 ---
 kind: configuration
-of: journey-scenario
+of: capability-scenario
 settings:
 - entity: meditation-settings
   fact: Extension controls
-takesEffect: The live completion check reads the current extension-control preference.
-stability: Preference changes can affect an ongoing check; no immutable journey choice is captured.
+takesEffect: The preference is read at the live completion check, including after changes during a run.
+stability: No immutable captured preference is promised; existing archived summaries remain records of their own completion.
 alternatives:
-- id: practice-with-lumi-meditation-auto
-  selectedWhen: Extension controls are disabled at completion.
-- id: practice-with-lumi-meditation-explicit
-  selectedWhen: Extension controls are enabled and User explicitly finishes before summary return. Missing preference
+- id: finish-practice-lumi-meditation-auto
+  selectedWhen: Extension controls are disabled, so the run completes automatically at elapsed duration.
+- id: finish-practice-lumi-meditation-explicit
+  selectedWhen: Extension controls are enabled, so User must explicitly finish at elapsed duration. Missing preference
     loads enabled extension controls.
 references:
 - kind: code
@@ -20,4 +20,4 @@ references:
 
 # Meditation with Lumi completion
 
-The preference determines whether an explicit finish is needed before Lumi returns the summary.
+The extension-control preference changes whether User must explicitly finish at elapsed duration before Lumi returns the summary.

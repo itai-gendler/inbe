@@ -46,23 +46,8 @@ steps:
   contexts:
     desktop:
       place: desktop-app::meditation
-- text: At zero remaining duration await explicit finish
-  kind: product
-  actor: user
-  capability: advance-practice
-  entities:
-  - entity: meditation-practice
-    effect: changes
-    facts:
-    - Remaining time
-    - Waiting state
-    from: Running
-    to: Awaiting finish
-  contexts:
-    desktop:
-      place: desktop-app::meditation
-- text: Choose Finish after awaiting completion
-  kind: actor
+- text: Reach configured normal completion
+  kind: condition
   actor: user
   capability: finish-practice
   entities: []
@@ -79,7 +64,7 @@ steps:
     facts:
     - Result values
     - Save outcome
-    from: Awaiting finish
+    from: Running
     to: Completed
   - entity: meditation-session
     effect: creates
@@ -144,7 +129,7 @@ references:
   target: src/practices/session_results.zi
 ---
 
-# Complete Meditation with Lumi by explicit finish
+# Complete Meditation with Lumi
 
 ## Trigger
 
@@ -153,3 +138,12 @@ User requests a new practice from Lumi and follows its normal completion path.
 ## Outcome
 
 The conversation shows its recorded values and save outcome; the live result is cleared.
+
+## Decision points
+
+### Extension controls
+
+Does completion wait for an explicit finish?
+
+- Extension controls disabled → the run completes automatically at elapsed duration.
+- Extension controls enabled → the run waits at zero remaining duration until User chooses Finish.
