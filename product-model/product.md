@@ -39,3 +39,7 @@ references:
 # Inner Breeze
 
 Inner Breeze provides breathing, meditation and movement practices, Habits, Lists, Diary, Lumi assistance and friend comparisons. A local account key and enabled synchronization optionally connect its data and observed practice activity across devices.
+
+## Intent
+
+Give people room for breathing, meditation and movement practice and for keeping daily Habits, Lists and Diary at their own pace, on their own device and offline, with synchronization only when they choose it.
